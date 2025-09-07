@@ -1,26 +1,85 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
-import AboutBenefits from './components/AboutBenefits';
-import Showcase from './components/Showcase';
-import Tickets from './components/Tickets';
+import LogosAndAspects from './components/LogosAndAspects';
+import Testimonials from './components/Testimonials';
+
+const RZP_KEY = 'rzp_test_7hSfjBuH1Tp7mv';
+const TICKET_INR = 250;
+
+async function loadRazorpayScript() {
+  if (window.Razorpay) return true;
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
 
 export default function App() {
   const [open, setOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [paid, setPaid] = useState(false);
+  const amountPaise = useMemo(() => TICKET_INR * 100, []);
+
+  async function onRegisterSubmit(e) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const name = String(fd.get('fullName') || '');
+    const email = String(fd.get('email') || '');
+    const phone = String(fd.get('phone') || '');
+
+    setSubmitting(true);
+    const ok = await loadRazorpayScript();
+    if (!ok) {
+      alert('Unable to load payment gateway. Please try again.');
+      setSubmitting(false);
+      return;
+    }
+
+    const rzp = new window.Razorpay({
+      key: RZP_KEY,
+      amount: amountPaise,
+      currency: 'INR',
+      name: 'AlgoUniversity',
+      description: 'AU Hiring Tournament Ticket',
+      image: 'https://cdn-icons-png.flaticon.com/512/3050/3050218.png',
+      prefill: { name, email, contact: phone },
+      notes: { event: 'AU Hiring Tournament' },
+      theme: { color: '#F59E0B' },
+      handler: function () {
+        setPaid(true);
+      },
+      modal: {
+        ondismiss: function () {
+          setSubmitting(false);
+        }
+      }
+    });
+
+    rzp.open();
+    setSubmitting(false);
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white font-inter">
-      <NavBar onRegister={() => setOpen(true)} />
+    <div className="min-h-screen text-white bg-black font-inter relative overflow-x-clip">
+      {/* Ambient warm glows */}
+      <div className="pointer-events-none absolute -top-28 -right-32 h-[40rem] w-[40rem] rounded-full blur-3xl opacity-25" style={{ background: 'radial-gradient(60% 60% at 50% 50%, rgba(245,158,11,0.35), rgba(251,113,133,0.25) 45%, rgba(244,114,182,0.2) 85%, rgba(0,0,0,0) 100%)' }} />
+      <div className="pointer-events-none absolute -bottom-48 -left-40 h-[46rem] w-[46rem] rounded-full blur-3xl opacity-20" style={{ background: 'radial-gradient(60% 60% at 50% 50%, rgba(251,191,36,0.28), rgba(251,146,60,0.22) 45%, rgba(244,114,182,0.18) 85%, rgba(0,0,0,0) 100%)' }} />
+
+      <NavBar onRegister={() => { setOpen(true); setPaid(false); }} />
+
       <main className="space-y-20">
-        <Hero onRegister={() => setOpen(true)} />
-        <AboutBenefits onRegister={() => setOpen(true)} />
-        <Showcase />
-        <Tickets onRegister={() => setOpen(true)} />
+        <Hero onRegister={() => { setOpen(true); setPaid(false); }} />
+        <LogosAndAspects />
+        <Testimonials />
       </main>
 
-      <footer className="border-t border-white/10 mt-20">
+      <footer className="border-t border-white/10 mt-20 bg-black/50 backdrop-blur">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-sm text-white/60">© {new Date().getFullYear()} AlgoUniversity — AU Hiring Tournament</p>
+          <p className="text-sm text-white/70">© {new Date().getFullYear()} AlgoUniversity — AU Hiring Tournament</p>
           <div className="flex items-center gap-4 text-white/80">
             <a href="https://www.instagram.com/algouniversity/" target="_blank" rel="noreferrer" className="hover:text-white transition">Instagram</a>
             <span className="opacity-30">•</span>
@@ -34,71 +93,85 @@ export default function App() {
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/70" onClick={() => setOpen(false)} />
-          <div className="relative w-full max-w-xl bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+          <div className="relative w-full max-w-xl bg-zinc-900/95 border border-white/10 rounded-2xl shadow-[0_40px_120px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-rose-500/10">
               <h3 className="text-lg font-semibold">Register for AU Hiring Tournament</h3>
-              <button onClick={() => setOpen(false)} aria-label="Close" className="text-white/60 hover:text-white">✕</button>
+              <button onClick={() => setOpen(false)} aria-label="Close" className="text-white/70 hover:text-white">✕</button>
             </div>
-            <div className="p-6">
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Thanks! Your interest has been recorded.'); setOpen(false); }}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-white/70 mb-1">Full Name</label>
-                    <input required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="Your name" />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-white/70 mb-1">Email</label>
-                    <input required type="email" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="you@example.com" />
-                  </div>
-                  <div className="md:col-span-2 grid grid-cols-3 gap-3">
+
+            {paid ? (
+              <div className="p-6 text-center space-y-3">
+                <div className="mx-auto w-12 h-12 rounded-full bg-amber-400/20 flex items-center justify-center border border-amber-400/40">✓</div>
+                <h4 className="text-xl font-semibold">Payment Initiated</h4>
+                <p className="text-white/85">Thank you! Your INR {TICKET_INR} payment has been processed by Razorpay. We will contact you with event details shortly.</p>
+                <button onClick={() => setOpen(false)} className="mt-2 rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 text-black font-medium px-6 py-2">Close</button>
+              </div>
+            ) : (
+              <div className="p-6">
+                <form onSubmit={onRegisterSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm text-white/70 mb-1">Code</label>
-                      <select className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" defaultValue={"+91"}>
-                        <option value="+91">+91</option>
-                        <option value="+1">+1</option>
-                        <option value="+44">+44</option>
-                        <option value="+61">+61</option>
+                      <label className="block text-sm text-white/70 mb-1">Full Name</label>
+                      <input name="fullName" required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="Your name" />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-white/70 mb-1">Email</label>
+                      <input name="email" required type="email" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="you@example.com" />
+                    </div>
+                    <div className="md:col-span-2 grid grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-sm text-white/70 mb-1">Code</label>
+                        <select name="code" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" defaultValue={'+91'}>
+                          <option value="+91">+91</option>
+                          <option value="+1">+1</option>
+                          <option value="+44">+44</option>
+                          <option value="+61">+61</option>
+                        </select>
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-sm text-white/70 mb-1">Phone</label>
+                        <input name="phone" required type="tel" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="WhatsApp number" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm text-white/70 mb-1">College</label>
+                      <input name="college" required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="Your college" />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-white/70 mb-1">Graduation Year</label>
+                      <select name="gradYear" required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60">
+                        <option value="">Select</option>
+                        {Array.from({ length: 12 }).map((_, i) => {
+                          const year = 2030 - i;
+                          return (
+                            <option key={year} value={year}>{year}</option>
+                          );
+                        })}
                       </select>
                     </div>
-                    <div className="col-span-2">
-                      <label className="block text-sm text-white/70 mb-1">Phone</label>
-                      <input required type="tel" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="WhatsApp number" />
+                    <div className="md:col-span-2">
+                      <label className="block text-sm text-white/70 mb-1">Tech Stack</label>
+                      <select name="stack" required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60">
+                        <option value="">--Select--</option>
+                        <option value="mern">MERN / MEAN</option>
+                        <option value="java">Java</option>
+                        <option value="dotnet">.NET</option>
+                        <option value="python">Python / Django</option>
+                        <option value="app">Android / iOS</option>
+                        <option value="aiml">AI / ML / DL</option>
+                        <option value="cpp">C++</option>
+                        <option value="devops">DevOps / CloudOps</option>
+                        <option value="others">Others</option>
+                      </select>
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-sm text-white/70 mb-1">College</label>
-                    <input required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="Your college" />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-white/70 mb-1">Graduation Year</label>
-                    <select required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60">
-                      <option value="">Select</option>
-                      {Array.from({ length: 12 }).map((_, i) => {
-                        const year = 2030 - i;
-                        return <option key={year} value={year}>{year}</option>;
-                      })}
-                    </select>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-sm text-white/70 mb-1">Tech Stack</label>
-                    <select required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60">
-                      <option value="">--Select--</option>
-                      <option value="mern">MERN / MEAN</option>
-                      <option value="java">Java</option>
-                      <option value="dotnet">.NET</option>
-                      <option value="python">Python / Django</option>
-                      <option value="app">Android / iOS</option>
-                      <option value="aiml">AI / ML / DL</option>
-                      <option value="cpp">C++</option>
-                      <option value="devops">DevOps / CloudOps</option>
-                      <option value="others">Others</option>
-                    </select>
-                  </div>
-                </div>
-                <button type="submit" className="w-full rounded-lg bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 text-black font-semibold py-3">Register</button>
-                <p className="text-xs text-white/50">By registering you agree to be contacted with event updates via email/WhatsApp.</p>
-              </form>
-            </div>
+                  <button disabled={submitting} type="submit" className="w-full rounded-lg bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 text-black font-semibold py-3 disabled:opacity-70">
+                    {submitting ? 'Processing...' : `Pay INR ${TICKET_INR} & Register`}
+                  </button>
+                  <p className="text-xs text-white/60">Secure payment powered by Razorpay. You will receive updates via email/WhatsApp.</p>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       )}
