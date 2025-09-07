@@ -35,28 +35,22 @@ const mentors = [
 
 export default function Showcase() {
   return (
-    <section id="showcase" className="py-20">
+    <section id="showcase" className="py-16">
       <div className="max-w-7xl mx-auto px-6">
         <h3 className="text-center text-2xl md:text-3xl font-semibold">Our Partners & Referrals</h3>
-        <div className="mt-10 space-y-6">
+        <div className="mt-8 space-y-6">
           <LogosMarquee items={logosRow1} />
           <LogosMarquee items={logosRow2} reverse />
         </div>
 
         <KeyAspects />
 
-        <div className="mt-20">
+        <div className="mt-16">
           <h3 className="text-2xl md:text-3xl font-semibold text-center md:text-left">Meet our mentors</h3>
-          <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-            <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory p-4 bg-white/5">
-              {mentors.map((src, i) => (
-                <img key={i} src={src} alt="Mentor" loading="lazy" className="h-64 object-cover rounded-xl snap-start border border-white/10 bg-black" />
-              ))}
-            </div>
-          </div>
+          <MentorsMarquee items={mentors} />
         </div>
 
-        <div id="testimonials" className="mt-20">
+        <div id="testimonials" className="mt-16">
           <h3 className="text-2xl md:text-3xl font-semibold text-center md:text-left">What participants say</h3>
           <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <VideoCard src="https://www.youtube.com/embed/hN6qtn_rUng" desc="Jhanwwee showcased her skills in the Hiring Tournament & got referred to Amazon." />
@@ -76,9 +70,7 @@ function LogosMarquee({ items, reverse }) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
       <div className={`flex items-center gap-10 py-6 animate-[marquee_35s_linear_infinite] ${reverse ? 'direction-rtl' : ''}`}
-        style={{
-          width: 'max-content',
-        }}
+        style={{ width: 'max-content' }}
       >
         {[...items, ...items].map((src, i) => (
           <img key={i} src={src} alt="Partner logo" loading="lazy" className="h-10 md:h-12 object-contain opacity-90" />
@@ -87,6 +79,22 @@ function LogosMarquee({ items, reverse }) {
       <style>{`
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .direction-rtl { animation-direction: reverse; }
+      `}</style>
+    </div>
+  );
+}
+
+function MentorsMarquee({ items }) {
+  const track = [...items, ...items, ...items];
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 mt-6">
+      <div className="flex gap-4 py-4 animate-[mentor_28s_linear_infinite]" style={{ width: 'max-content' }}>
+        {track.map((src, i) => (
+          <img key={i} src={src} alt="Mentor" loading="lazy" className="h-64 object-cover rounded-xl border border-white/10 bg-black" />
+        ))}
+      </div>
+      <style>{`
+        @keyframes mentor { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
       `}</style>
     </div>
   );

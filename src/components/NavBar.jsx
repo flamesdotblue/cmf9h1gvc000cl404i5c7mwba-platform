@@ -9,7 +9,7 @@ export default function NavBar({ onRegister }) {
           <a href="#showcase" className="hover:text-white">Partners</a>
           <a href="#testimonials" className="hover:text-white">Testimonials</a>
         </nav>
-        <button onClick={onRegister} className="rounded-full bg-white text-black text-sm font-medium px-4 py-2 hover:bg-zinc-100 active:scale-[0.99] transition">Register</button>
+        <button onClick={onRegister} className="rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-400 text-black text-sm font-medium px-4 py-2 shadow-[0_6px_26px_-8px_rgba(59,130,246,0.6)] hover:shadow-[0_10px_36px_-10px_rgba(236,72,153,0.6)] transition-transform hover:-translate-y-0.5 active:translate-y-0">Register</button>
       </div>
     </header>
   );

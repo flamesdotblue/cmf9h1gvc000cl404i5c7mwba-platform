@@ -16,7 +16,7 @@ export default function App() {
         <Showcase />
       </main>
 
-      <footer className="border-t border-white/10 mt-20">
+      <footer className="border-t border-white/10 mt-16">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-sm text-white/60">© {new Date().getFullYear()} AlgoUniversity — AU Hiring Tournament</p>
           <div className="flex items-center gap-4 text-white/80">
@@ -93,7 +93,7 @@ export default function App() {
                     </select>
                   </div>
                 </div>
-                <button type="submit" className="w-full rounded-lg bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-400 text-black font-semibold py-3">Register</button>
+                <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-400 text-black font-semibold py-3 shadow-[0_10px_40px_-10px_rgba(168,85,247,0.65)] hover:shadow-[0_18px_60px_-12px_rgba(56,189,248,0.55)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0">Register</button>
                 <p className="text-xs text-white/50">By registering you agree to be contacted with event updates via email/WhatsApp.</p>
               </form>
             </div>

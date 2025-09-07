@@ -1,7 +1,7 @@
 export default function KeyAspects() {
   return (
-    <section id="benefits" className="relative mt-16 rounded-3xl overflow-hidden border border-white/10 bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,0.12),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.12),transparent_60%)]">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid lg:grid-cols-2 gap-10 items-center">
+    <section id="benefits" className="relative mt-12 rounded-3xl overflow-hidden border border-white/10 bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,0.12),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.12),transparent_60%)]">
+      <div className="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-2 gap-8 items-center">
         <div>
           <h3 className="text-xl md:text-2xl font-semibold">Key Aspects</h3>
           <ul className="mt-4 space-y-3 text-white/80 list-disc pl-5">
