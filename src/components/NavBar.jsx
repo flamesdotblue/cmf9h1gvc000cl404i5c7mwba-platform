@@ -5,7 +5,7 @@ export default function NavBar({ onRegister }) {
         <a href="#home" className="text-sm tracking-widest font-semibold text-white/90 hover:text-white">ALGOUNIVERSITY</a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-white/70">
           <a href="#about" className="hover:text-white">About</a>
-          <a href="#benefits" className="hover:text-white">Key Aspects</a>
+          <a href="#benefits" className="hover:text-white">Benefits</a>
           <a href="#showcase" className="hover:text-white">Partners</a>
           <a href="#testimonials" className="hover:text-white">Testimonials</a>
         </nav>
