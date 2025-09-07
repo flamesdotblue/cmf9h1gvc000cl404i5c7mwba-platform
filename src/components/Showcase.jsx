@@ -35,7 +35,9 @@ const mentors = [
 
 export default function Showcase() {
   return (
-    <section id="showcase" className="py-20">
+    <section id="showcase" className="py-20 relative">
+      {/* Warm wash background */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.10),transparent_60%),radial-gradient(ellipse_at_bottom_left,rgba(244,114,182,0.10),transparent_60%)]" />
       <div className="max-w-7xl mx-auto px-6">
         <h3 className="text-center text-2xl md:text-3xl font-semibold">Our Partners & Referrals</h3>
         <div className="mt-10 space-y-6">
@@ -86,8 +88,8 @@ function LogosMarquee({ items, reverse }) {
 
 function MentorsMarquee({ items }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 group">
-      <div className="flex items-center gap-4 py-4 bg-white/5">
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 group bg-white/5">
+      <div className="flex items-center gap-4 py-4">
         <div className="flex items-center gap-4 animate-[mentorsLoop_22s_linear_infinite] group-hover:[animation-play-state:paused]" style={{ width: 'max-content' }}>
           {[...items, ...items].map((src, i) => (
             <img key={i} src={src} alt="Mentor" loading="lazy" className="h-64 object-cover rounded-xl border border-white/10 bg-black" />
