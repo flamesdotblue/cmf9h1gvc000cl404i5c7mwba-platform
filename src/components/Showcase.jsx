@@ -1,3 +1,5 @@
+import KeyAspects from './KeyAspects';
+
 const logosRow1 = [
   'https://d1lrk9cp1c3gxw.cloudfront.net/media/public/auht/partners/1_4gg3q2e.png',
   'https://d1lrk9cp1c3gxw.cloudfront.net/media/public/auht/partners/2_Wv3SRIb.png',
@@ -41,6 +43,9 @@ export default function Showcase() {
           <LogosMarquee items={logosRow2} reverse />
         </div>
 
+        {/* Key Aspects placed right after referral logos */}
+        <KeyAspects />
+
         <div className="mt-20">
           <h3 className="text-2xl md:text-3xl font-semibold text-center md:text-left">Meet our mentors</h3>
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
@@ -73,7 +78,6 @@ function LogosMarquee({ items, reverse }) {
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
       <div className={`flex items-center gap-10 py-6 animate-[marquee_35s_linear_infinite] ${reverse ? 'direction-rtl' : ''}`}
         style={{
-          // Duplicate items for seamless loop
           width: 'max-content',
         }}
       >
