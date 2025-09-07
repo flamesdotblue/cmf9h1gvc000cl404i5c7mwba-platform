@@ -43,7 +43,6 @@ export default function Showcase() {
           <LogosMarquee items={logosRow2} reverse />
         </div>
 
-        {/* Key Aspects placed right after referral logos */}
         <KeyAspects />
 
         <div className="mt-20">

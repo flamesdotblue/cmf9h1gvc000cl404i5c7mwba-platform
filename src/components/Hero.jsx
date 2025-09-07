@@ -1,22 +1,11 @@
+import Spline from '@splinetool/react-spline';
+
 export default function Hero({ onRegister }) {
   return (
     <section id="home" className="relative min-h-[92vh] flex items-center overflow-hidden">
-      {/* Background video */}
-      <div className="absolute inset-0 -z-10">
-        <video
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1920&auto=format&fit=crop"
-        >
-          <source src="https://cdn.pixabay.com/video/2019/03/14/21942-326845020_tiny.mp4" type="video/mp4" />
-          <source src="https://cdn.videvo.net/videvo_files/video/premium/video0326/medium_watermarked/11_11_2021_19h_55m_38s%20%281%29_preview.webm" type="video/webm" />
-        </video>
+      <div className="absolute inset-0">
+        <Spline scene="https://prod.spline.design/EQgEIs2r5cMbWroZ/scene.splinecode" style={{ width: '100%', height: '100%' }} />
       </div>
-
-      {/* Gradient overlay for readability */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/60 to-black" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24 pb-16">
