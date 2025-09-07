@@ -77,7 +77,9 @@ function LogosMarquee({ items, reverse }) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
       <div className={`flex items-center gap-10 py-6 animate-[marquee_35s_linear_infinite] ${reverse ? 'direction-rtl' : ''}`}
-        style={{ width: 'max-content' }}
+        style={{
+          width: 'max-content',
+        }}
       >
         {[...items, ...items].map((src, i) => (
           <img key={i} src={src} alt="Partner logo" loading="lazy" className="h-10 md:h-12 object-contain opacity-90" />
@@ -93,18 +95,18 @@ function LogosMarquee({ items, reverse }) {
 
 function VideoCard({ src, desc }) {
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-b from-stone-900/70 to-stone-900/50 flex flex-col">
+    <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex flex-col">
       <div className="relative aspect-video">
         <iframe src={src} title="Testimonial video" className="absolute inset-0 w-full h-full" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowFullScreen />
       </div>
-      <p className="p-4 text-white/85">{desc}</p>
+      <p className="p-4 text-white/80">{desc}</p>
     </div>
   );
 }
 
 function TextTestimonial({ name, date, img, link, text }) {
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-b from-stone-900/70 to-stone-900/50">
+    <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5">
       <div className="flex items-center justify-between p-4 border-b border-white/10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 bg-black">
@@ -112,12 +114,12 @@ function TextTestimonial({ name, date, img, link, text }) {
           </div>
           <div>
             <p className="font-medium">{name}</p>
-            <p className="text-xs text-white/70">{date}</p>
+            <p className="text-xs text-white/60">{date}</p>
           </div>
         </div>
-        <a href={link} target="_blank" rel="noreferrer" className="text-xs text-white/80 hover:text-white">LinkedIn</a>
+        <a href={link} target="_blank" rel="noreferrer" className="text-xs text-white/70 hover:text-white">LinkedIn</a>
       </div>
-      <p className="p-4 text-white/85">{text}</p>
+      <p className="p-4 text-white/80">{text}</p>
     </div>
   );
 }
