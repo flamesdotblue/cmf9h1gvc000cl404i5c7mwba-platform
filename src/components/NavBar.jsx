@@ -7,6 +7,7 @@ export default function NavBar({ onRegister }) {
           <a href="#about" className="hover:text-white">About</a>
           <a href="#benefits" className="hover:text-white">Benefits</a>
           <a href="#showcase" className="hover:text-white">Partners</a>
+          <a href="#tickets" className="hover:text-white">Tickets</a>
           <a href="#testimonials" className="hover:text-white">Testimonials</a>
         </nav>
         <button onClick={onRegister} className="rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 text-black text-sm font-medium px-4 py-2 hover:opacity-95 active:scale-[0.99] transition">Register</button>
