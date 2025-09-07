@@ -10,13 +10,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-black text-white font-inter">
       <NavBar onRegister={() => setOpen(true)} />
-      <main>
+      <main className="space-y-20">
         <Hero onRegister={() => setOpen(true)} />
         <AboutBenefits onRegister={() => setOpen(true)} />
         <Showcase />
       </main>
 
-      <footer className="border-t border-white/10 mt-16">
+      <footer className="border-t border-white/10 mt-20">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-sm text-white/60">© {new Date().getFullYear()} AlgoUniversity — AU Hiring Tournament</p>
           <div className="flex items-center gap-4 text-white/80">
@@ -42,16 +42,16 @@ export default function App() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm text-white/70 mb-1">Full Name</label>
-                    <input required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Your name" />
+                    <input required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="Your name" />
                   </div>
                   <div>
                     <label className="block text-sm text-white/70 mb-1">Email</label>
-                    <input required type="email" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="you@example.com" />
+                    <input required type="email" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="you@example.com" />
                   </div>
                   <div className="md:col-span-2 grid grid-cols-3 gap-3">
                     <div>
                       <label className="block text-sm text-white/70 mb-1">Code</label>
-                      <select className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500" defaultValue={"+91"}>
+                      <select className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" defaultValue={"+91"}>
                         <option value="+91">+91</option>
                         <option value="+1">+1</option>
                         <option value="+44">+44</option>
@@ -60,16 +60,16 @@ export default function App() {
                     </div>
                     <div className="col-span-2">
                       <label className="block text-sm text-white/70 mb-1">Phone</label>
-                      <input required type="tel" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="WhatsApp number" />
+                      <input required type="tel" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="WhatsApp number" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm text-white/70 mb-1">College</label>
-                    <input required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Your college" />
+                    <input required type="text" className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60" placeholder="Your college" />
                   </div>
                   <div>
                     <label className="block text-sm text-white/70 mb-1">Graduation Year</label>
-                    <select required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+                    <select required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60">
                       <option value="">Select</option>
                       {Array.from({ length: 12 }).map((_, i) => {
                         const year = 2030 - i;
@@ -79,7 +79,7 @@ export default function App() {
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-sm text-white/70 mb-1">Tech Stack</label>
-                    <select required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+                    <select required className="w-full rounded-lg bg-zinc-800 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-amber-400/60">
                       <option value="">--Select--</option>
                       <option value="mern">MERN / MEAN</option>
                       <option value="java">Java</option>
@@ -93,7 +93,7 @@ export default function App() {
                     </select>
                   </div>
                 </div>
-                <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-400 text-black font-semibold py-3 shadow-[0_10px_40px_-10px_rgba(168,85,247,0.65)] hover:shadow-[0_18px_60px_-12px_rgba(56,189,248,0.55)] transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0">Register</button>
+                <button type="submit" className="w-full rounded-lg bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 text-black font-semibold py-3">Register</button>
                 <p className="text-xs text-white/50">By registering you agree to be contacted with event updates via email/WhatsApp.</p>
               </form>
             </div>

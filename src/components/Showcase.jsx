@@ -35,22 +35,22 @@ const mentors = [
 
 export default function Showcase() {
   return (
-    <section id="showcase" className="py-16">
+    <section id="showcase" className="py-20">
       <div className="max-w-7xl mx-auto px-6">
         <h3 className="text-center text-2xl md:text-3xl font-semibold">Our Partners & Referrals</h3>
-        <div className="mt-8 space-y-6">
+        <div className="mt-10 space-y-6">
           <LogosMarquee items={logosRow1} />
           <LogosMarquee items={logosRow2} reverse />
         </div>
 
         <KeyAspects />
 
-        <div className="mt-16">
+        <div className="mt-20">
           <h3 className="text-2xl md:text-3xl font-semibold text-center md:text-left">Meet our mentors</h3>
           <MentorsMarquee items={mentors} />
         </div>
 
-        <div id="testimonials" className="mt-16">
+        <div id="testimonials" className="mt-20">
           <h3 className="text-2xl md:text-3xl font-semibold text-center md:text-left">What participants say</h3>
           <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <VideoCard src="https://www.youtube.com/embed/hN6qtn_rUng" desc="Jhanwwee showcased her skills in the Hiring Tournament & got referred to Amazon." />
@@ -85,16 +85,17 @@ function LogosMarquee({ items, reverse }) {
 }
 
 function MentorsMarquee({ items }) {
-  const track = [...items, ...items, ...items];
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 mt-6">
-      <div className="flex gap-4 py-4 animate-[mentor_28s_linear_infinite]" style={{ width: 'max-content' }}>
-        {track.map((src, i) => (
-          <img key={i} src={src} alt="Mentor" loading="lazy" className="h-64 object-cover rounded-xl border border-white/10 bg-black" />
-        ))}
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 group">
+      <div className="flex items-center gap-4 py-4 bg-white/5">
+        <div className="flex items-center gap-4 animate-[mentorsLoop_22s_linear_infinite] group-hover:[animation-play-state:paused]" style={{ width: 'max-content' }}>
+          {[...items, ...items].map((src, i) => (
+            <img key={i} src={src} alt="Mentor" loading="lazy" className="h-64 object-cover rounded-xl border border-white/10 bg-black" />
+          ))}
+        </div>
       </div>
       <style>{`
-        @keyframes mentor { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+        @keyframes mentorsLoop { from { transform: translateX(0); } to { transform: translateX(-50%); } }
       `}</style>
     </div>
   );
